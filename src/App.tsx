@@ -1,0 +1,382 @@
+import React, { useState, useMemo } from "react";
+import { getParsedTravels, ATLANTA_COORDS } from "./travelData";
+import { TravelCheckIn, MapStyleOption } from "./types";
+import TravelMap from "./components/TravelMap";
+import StatsDashboard from "./components/StatsDashboard";
+import { 
+  Compass, 
+  MapPin, 
+  Calendar, 
+  Search, 
+  Globe, 
+  SlidersHorizontal, 
+  Info, 
+  ListOrdered,
+  Layers,
+  ChevronRight,
+  ArrowRight,
+  Sparkles,
+  Palmtree,
+  ArrowUpRight
+} from "lucide-react";
+
+const MAP_STYLES: MapStyleOption[] = [
+  {
+    id: "voyager",
+    name: "Voyager Blue",
+    url: "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+  },
+  {
+    id: "esri-ocean",
+    name: "Deep Ocean Bathymetry",
+    url: "https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}",
+    attribution: "Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri",
+  },
+  {
+    id: "positron",
+    name: "Bright Minimalist",
+    url: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+  },
+  {
+    id: "midnight",
+    name: "Midnight Luminous",
+    url: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+  },
+];
+
+export default function App() {
+  const allTravels = useMemo(() => getParsedTravels(), []);
+
+  // Set default active year to 2015 as it has very beautiful travels globally
+  const [selectedYear, setSelectedYear] = useState<number>(2015);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [activeMapStyle, setActiveMapStyle] = useState<MapStyleOption>(MAP_STYLES[0]);
+  const [highlightedCheckin, setHighlightedCheckin] = useState<TravelCheckIn | null>(null);
+
+  // Derive distinct years from data & sort descending
+  const yearsList = useMemo(() => {
+    const years = Array.from(new Set<number>(allTravels.map((t) => t.year)));
+    return years.sort((a: number, b: number) => b - a);
+  }, [allTravels]);
+
+  // Compute travel count per year for year selection layout
+  const yearCounts = useMemo(() => {
+    const counts: { [year: number]: number } = {};
+    allTravels.forEach((t) => {
+      counts[t.year] = (counts[t.year] || 0) + 1;
+    });
+    return counts;
+  }, [allTravels]);
+
+  // Filter current travels based on selected Year & search queries
+  const yearTravels = useMemo(() => {
+    return allTravels.filter((t) => t.year === selectedYear);
+  }, [allTravels, selectedYear]);
+
+  const filteredTravels = useMemo(() => {
+    if (!searchQuery.trim()) return yearTravels;
+    const lowerQuery = searchQuery.toLowerCase();
+    return yearTravels.filter(
+      (t) =>
+        t.venueName.toLowerCase().includes(lowerQuery) ||
+        t.city.toLowerCase().includes(lowerQuery) ||
+        t.country.toLowerCase().includes(lowerQuery) ||
+        (t.state && t.state.toLowerCase().includes(lowerQuery))
+    );
+  }, [yearTravels, searchQuery]);
+
+  // Handle active travel node selection
+  const handleSelectCheckin = (checkin: TravelCheckIn | null) => {
+    setHighlightedCheckin(checkin);
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-100/80 text-slate-900 flex flex-col font-sans antialiased selection:bg-blue-100 p-2 sm:p-5">
+      
+      {/* Outer balanced layout wrapper */}
+      <div className="w-full max-w-7xl mx-auto bg-white rounded-2xl border border-slate-200/90 shadow-2xl flex flex-col overflow-hidden min-h-[85vh]">
+        
+        {/* Header Navigation */}
+        <header className="h-16 flex items-center justify-between px-6 sm:px-8 bg-white border-b border-slate-200 shrink-0 z-10">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-blue-600 rounded-sm flex items-center justify-center text-white font-extrabold tracking-tight">N</div>
+            <h1 className="text-sm font-semibold tracking-tight uppercase text-slate-700">
+              Nomad Ledger
+            </h1>
+          </div>
+          <div className="flex gap-2 sm:gap-4 items-center">
+            <div className="hidden sm:block px-3 py-1 bg-slate-100 rounded text-[10px] font-bold uppercase tracking-wider text-slate-500 border border-slate-200">
+              Global Haversine View
+            </div>
+            <div className="px-3 py-1 bg-blue-600 rounded text-[10px] font-bold uppercase tracking-wider text-white">
+              Verified Trajectories
+            </div>
+          </div>
+        </header>
+
+        {/* Dynamic Multi-panel Inner Body */}
+        <div className="flex-1 flex flex-col lg:flex-row overflow-hidden min-h-[640px]">
+          
+          {/* Sidebar Left: Year Selector */}
+          <aside className="w-full lg:w-20 bg-slate-900 flex lg:flex-col items-center py-4 lg:py-8 gap-4 lg:gap-10 shrink-0 border-b lg:border-b-0 lg:border-r border-slate-800 overflow-x-auto lg:overflow-x-visible overflow-y-hidden lg:overflow-y-auto px-4 lg:px-0">
+            
+            {/* Year selectors */}
+            <div className="flex lg:flex-col gap-4 lg:gap-8 w-full items-center justify-around lg:justify-start">
+              {yearsList.map((y) => {
+                const isActive = selectedYear === y;
+                const count = yearCounts[y] || 0;
+                return (
+                  <button
+                    key={y}
+                    onClick={() => {
+                      setSelectedYear(y);
+                      setSearchQuery("");
+                      setHighlightedCheckin(null);
+                    }}
+                    className={`group flex flex-col items-center gap-1 transition-all shrink-0 ${
+                      isActive ? "opacity-100 scale-110" : "opacity-40 hover:opacity-90"
+                    }`}
+                  >
+                    <span className={`text-[11px] font-extrabold tracking-tight ${isActive ? "text-blue-400" : "text-white"}`}>
+                      {y}
+                    </span>
+                    <div className={isActive ? "w-10 h-1 bg-blue-500 rounded-full" : "w-8 h-[1px] bg-slate-600"}></div>
+                    <span className="text-[8px] font-mono text-slate-400">{count} stops</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Extra status label at bottom */}
+            <div className="hidden lg:flex mt-auto mb-2 flex-col items-center">
+              <div className="w-10 h-10 rounded-full border border-slate-800 flex items-center justify-center text-slate-500 text-xs font-serif italic" title="Haversine Geodetics Loaded">
+                i
+              </div>
+            </div>
+
+          </aside>
+
+          {/* Center Column: Map Area and controls */}
+          <main className="flex-1 flex flex-col p-4 sm:p-6 gap-4 overflow-y-auto">
+            
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1">
+                  <Globe className="h-3 w-3 text-blue-500 animate-spin" style={{ animationDuration: '10s' }} />
+                  Interactive Spatiotemporal Matrix
+                </span>
+                <h2 className="text-xl font-bold tracking-tight text-slate-900 mt-1">
+                  Journeys in {selectedYear}
+                </h2>
+              </div>
+
+              {/* Instant Search Bar */}
+              <div className="relative w-full sm:w-64 shrink-0">
+                <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+                <input
+                  type="text"
+                  placeholder="Filter destinations..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full bg-slate-100 hover:bg-slate-200/70 focus:bg-white text-xs pl-9 pr-4 py-2.0 h-9 rounded border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all font-medium text-slate-800"
+                />
+              </div>
+            </div>
+
+            {/* Style Selector and Sea View Note */}
+            <div className="flex flex-wrap items-center justify-between gap-3 p-3 bg-slate-100/85 border border-slate-200 rounded-lg">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1 mr-1">
+                  <Layers className="h-3.5 w-3.5 text-slate-500" />
+                  Ocean Theme:
+                </span>
+                {MAP_STYLES.map((style) => (
+                  <button
+                    key={style.id}
+                    onClick={() => setActiveMapStyle(style)}
+                    className={`py-1 px-2 text-[11px] rounded transition-all font-medium ${
+                      activeMapStyle.id === style.id
+                        ? "bg-slate-900 text-white font-bold"
+                        : "bg-white hover:bg-slate-50 text-slate-600 border border-slate-200"
+                    }`}
+                  >
+                    {style.name}
+                  </button>
+                ))}
+              </div>
+              <span className="text-[10px] text-slate-500 italic hidden md:inline">
+                Blue indicates depth bathymetry for oceans.
+              </span>
+            </div>
+
+            {/* TravelMap Component */}
+            <TravelMap 
+              travels={filteredTravels} 
+              selectedYear={selectedYear}
+              highlightedCheckin={highlightedCheckin}
+              onSelectCheckin={handleSelectCheckin}
+              mapStyle={activeMapStyle}
+            />
+
+            {/* Quick Micro-Banner for Context */}
+            <div className="p-3.5 bg-yellow-50/50 border border-yellow-100 rounded-lg text-xs text-slate-600 flex items-start gap-2">
+              <Info className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
+              <span>
+                <strong>Geometric Balance Pathing:</strong> Paths are represented chronologically. Use the timeline on the right or click directly on map nodes to inspect venues visited outside your Atlanta starting base.
+              </span>
+            </div>
+
+          </main>
+
+          {/* Right Panel: Detailed Trip Timeline & Curated Summary */}
+          <aside className="w-full lg:w-80 bg-white border-t lg:border-t-0 lg:border-l border-slate-200 flex flex-col shrink-0 overflow-hidden">
+            
+            {/* Summary Block */}
+            <div className="p-6 border-b border-slate-100 bg-slate-50/50">
+              <h2 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-1">
+                SUMMARY {selectedYear}
+              </h2>
+              <p className="text-2xl font-serif italic text-slate-800">
+                {filteredTravels.length} Destinations
+              </p>
+              
+              <div className="mt-4 flex gap-3">
+                <div className="flex-1 bg-slate-100/70 p-3 rounded border border-slate-200/50">
+                  <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Distance</p>
+                  <p className="text-base font-mono font-bold text-blue-600">
+                    {yearTravels.reduce((acc, curr) => acc + curr.distanceFromAtlanta, 0).toLocaleString()}
+                  </p>
+                  <p className="text-[8px] text-slate-500 font-medium">KM OUTSIDE ATL</p>
+                </div>
+                
+                <div className="flex-1 bg-slate-100/70 p-3 rounded border border-slate-200/50">
+                  <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Peak Stop</p>
+                  <p className="text-base font-mono font-bold text-emerald-600">
+                    {yearTravels.length > 0 
+                      ? Math.max(...yearTravels.map(t => t.distanceFromAtlanta)).toLocaleString() 
+                      : "0"}
+                  </p>
+                  <p className="text-[8px] text-slate-500 font-medium">MAX RANGE KM</p>
+                </div>
+              </div>
+            </div>
+
+            {/* List Chronology */}
+            <div className="flex-1 overflow-y-auto divide-y divide-slate-100 max-h-[460px] lg:max-h-none">
+              
+              {filteredTravels.length > 0 ? (
+                filteredTravels.map((chk, index) => {
+                  const isHighlighted = highlightedCheckin?.checkinId === chk.checkinId;
+                  return (
+                    <div
+                      key={chk.checkinId}
+                      onClick={() => handleSelectCheckin(chk)}
+                      onMouseEnter={() => handleSelectCheckin(chk)}
+                      className={`p-4 cursor-pointer flex items-start gap-4 transition-all duration-150 ${
+                        isHighlighted
+                          ? "bg-blue-600/10 border-l-4 border-l-blue-600 pl-3"
+                          : "hover:bg-slate-50"
+                      }`}
+                    >
+                      {/* Circle Number Badge */}
+                      <div className={`mt-0.5 font-mono text-[9px] font-bold w-5 h-5 rounded-full flex items-center justify-center shrink-0 border ${
+                        isHighlighted 
+                          ? "bg-blue-600 text-white border-blue-600 animate-pulse" 
+                          : "bg-slate-100 text-slate-500 border-slate-200"
+                      }`}>
+                        {index + 1}
+                      </div>
+
+                      {/* Content block */}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex justify-between items-baseline gap-1">
+                          <span className="text-[9px] font-bold uppercase text-slate-400 font-mono">
+                            {chk.date} • {chk.time}
+                          </span>
+                          <span className="text-[9px] font-bold font-mono text-blue-600 shrink-0">
+                            {chk.distanceFromAtlanta.toLocaleString()} km
+                          </span>
+                        </div>
+
+                        <h3 className="text-xs font-bold text-slate-900 mt-0.5 truncate" title={chk.venueName}>
+                          {chk.venueName}
+                        </h3>
+
+                        <p className="text-[11px] text-slate-500 mt-0.5 truncate flex items-center gap-1">
+                          <MapPin className="h-3 w-3 text-slate-400 shrink-0" />
+                          {chk.city}{chk.state ? `, ${chk.state}` : ""}
+                        </p>
+                      </div>
+
+                      <ChevronRight className={`h-3.5 w-3.5 self-center transition-transform shrink-0 ${
+                        isHighlighted ? "translate-x-1 text-blue-600" : "text-slate-300"
+                      }`} />
+                    </div>
+                  );
+                })
+              ) : (
+                <div className="p-8 text-center flex flex-col items-center justify-center gap-2">
+                  <span className="bg-slate-100 p-2.5 rounded-full text-slate-400">
+                    <Search className="h-5 w-5" />
+                  </span>
+                  <p className="text-xs font-medium text-slate-500">No match records found this year.</p>
+                </div>
+              )}
+
+            </div>
+
+            {/* Bottom button view summary */}
+            <div className="p-4 bg-slate-50 mt-auto border-t border-slate-100">
+              <div 
+                onClick={() => {
+                  if (allTravels.length > 0) {
+                    const randomSpot = allTravels[Math.floor(Math.random() * allTravels.length)];
+                    setSelectedYear(randomSpot.year);
+                    setHighlightedCheckin(randomSpot);
+                  }
+                }}
+                className="w-full py-2.5 bg-slate-900 text-white rounded font-bold text-xs uppercase tracking-widest text-center cursor-pointer hover:bg-slate-800 transition-colors"
+              >
+                Inspect Random Stop
+              </div>
+            </div>
+
+          </aside>
+
+        </div>
+
+        {/* Footer Status Bar */}
+        <footer className="h-10 bg-white border-t border-slate-200 flex items-center justify-between px-6 sm:px-8 shrink-0">
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-2">
+              <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+              <span className="text-[9px] font-extrabold text-slate-500 uppercase tracking-widest">
+                Geodetic Vectors Sync Active
+              </span>
+            </div>
+            <div className="text-[9px] font-bold text-slate-400 uppercase hidden sm:block">
+              Scale: 1 : Dynamic Mercator Projection
+            </div>
+          </div>
+          <div className="text-[9px] font-extrabold text-slate-400 uppercase tracking-widest">
+            Curated via travels-led-outside-atlanta
+          </div>
+        </footer>
+
+      </div>
+
+      {/* Row 4: Stats Dashboard Component Layer */}
+      <div className="w-full max-w-7xl mx-auto mt-4 px-2 sm:px-0">
+        <StatsDashboard 
+          allTravels={allTravels} 
+          filteredTravels={yearTravels} 
+          selectedYear={selectedYear} 
+        />
+      </div>
+
+    </div>
+  );
+}
