@@ -64,6 +64,8 @@ const SAMPLE_TRAVELS_RAW = [
   { date: "2/6/16", time: "19:42:27", venue: "The Crater Geothermal Dome", city: "Midway", state: "Utah", country: "United States", lat: 40.5242922, lng: -111.4847, id: "56b64ca338faf4d33cc6976d" },
   { date: "2/8/16", time: "15:52:22", venue: "Park City Mountain Resort", city: "Park City", state: "Utah", country: "United States", lat: 40.6514389, lng: -111.50803, id: "56b8b9b6498e50ae13c36b22" },
   { date: "2/28/16", time: "18:12:47", venue: "Wynwood Walls Art District", city: "Miami", state: "Florida", country: "United States", lat: 25.8022874, lng: -80.201288, id: "56d3389f498e4fef60fd594f" },
+  { date: "5/28/16", time: "18:12:47", venue: "Cozumel Palace", city: "San Miguel de Cozumel	", state: "", country: "Mexico", lat: 20.5033173, lng: -86.959439, id: "5749ec91498eece55b916d6a" },
+  { date: "8/30/16", time: "10:41:47", venue: "Nice", city: "Nice", state: "", country: "France", lat: 43.6985008, lng: 7.26039969, id: "57c53c39498e0ee926d3ea91" },
   { date: "9/2/16", time: "10:41:47", venue: "Guinness Storehouse", city: "Dublin", state: "", country: "Ireland", lat: 53.3418473, lng: -6.2868871, id: "57c9576b498ee4c1fe2db01e" },
   { date: "9/5/16", time: "14:20:04", venue: "Slea Head Drive Coast", city: "Dingle", state: "", country: "Ireland", lat: 51.8947291, lng: -10.35314, id: "57cd7f14498e770e67a5f7e9" },
   { date: "9/7/16", time: "13:18:13", venue: "Blarney Castle & Gardens", city: "Blarney", state: "", country: "Ireland", lat: 51.9378982, lng: -8.5618571, id: "57d01395498e1d84dfa0c6c6" },
