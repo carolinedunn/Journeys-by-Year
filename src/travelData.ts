@@ -80,10 +80,13 @@ const SAMPLE_TRAVELS_RAW = [
   { date: "9/1/18", time: "13:35:34", venue: "Parque del Amor overlooking Pacific", city: "Lima", state: "", country: "Peru", lat: -12.130074, lng: -77.032352, id: "5b8a95a6e07550002c9bdb0b" },
   // 2019
   { date: "3/16/19", time: "15:37:47", venue: "Cape Henry Lighthouse", city: "Virginia Beach", state: "Virginia", country: "United States", lat: 36.9260536, lng: -76.007748, id: "5c8d184b5b971100256274b8" },
+  { date: "7/14/19", time: "20:30:38", venue: "Dunn's Famous", city: "Montreal", state: "", country: "Canada", lat: 45.5004864, lng: -73.571757, id: "5d2b63014c60f30007b3469b" },
   { date: "7/18/19", time: "20:30:38", venue: "CN Tower revolving observation", city: "Toronto", state: "", country: "Canada", lat: 43.6450795, lng: -79.388903, id: "5d30d6eefe6ba700082ad05a" },
   { date: "8/30/19", time: "19:30:34", venue: "Powell's City of Books", city: "Portland", state: "Oregon", country: "United States", lat: 45.5234684, lng: -122.68142, id: "5d69795a4bed47000823fcb8" },
+  { date: "10/14/19", time: "11:06:39", venue: "Estrella Dominicus", city: "La Romana", state: "", country: "Dominican Republic", lat: 18.351945, lng: -68.827818, id: "5dc69dbfb5a2f900089ce0e8" },
   { date: "11/9/19", time: "11:06:39", venue: "Cours Saleya Flower Market", city: "Nice", state: "", country: "France", lat: 43.6956772, lng: 7.27453485, id: "5dc69dbfb5a2f900089ce0e8" },
   // 2020
+  { date: "1/4/20", time: "07:45:12", venue: "Big Dog Running Co.", city: "Columbus", state: "Georgia", country: "United States", lat: 32.4669426, lng: -84.993244, id: "5e108be3e6b69600089a1325" },
   { date: "2/3/20", time: "19:45:12", venue: "Tamarack Lodge Ski Resort", city: "Kingsbury", state: "Nevada", country: "United States", lat: 38.9363397, lng: -119.91006, id: "5e387848a4780400086c0505" },
   { date: "3/3/20", time: "16:14:28", venue: "Mercer Williams Historic House", city: "Savannah", state: "Georgia", country: "United States", lat: 32.0729944, lng: -81.094142, id: "5e5e8264205e86000879fbcb" },
   { date: "10/13/20", time: "15:27:51", venue: "Driftwood Beach Scenic Shoreline", city: "Jekyll Island", state: "Georgia", country: "United States", lat: 31.1048809, lng: -81.404268, id: "5f85c7770f8aa624937bfa62" },
