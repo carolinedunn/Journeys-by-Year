@@ -78,6 +78,7 @@ const SAMPLE_TRAVELS_RAW = [
   { date: "5/21/18", time: "18:20:41", venue: "Kendall-Jackson Winery", city: "Santa Rosa", state: "California", country: "United States", lat: 38.5073027, lng: -122.77243, id: "5b030df9840fc2002c0b0fd0" },
   { date: "8/30/18", time: "19:04:47", venue: "Inca Ruins: Machu Picchu", city: "Cusco", state: "", country: "Peru", lat: -13.154095, lng: -72.523189, id: "5b883fcfda5ede002ca43e3d" },
   { date: "9/1/18", time: "13:35:34", venue: "Parque del Amor overlooking Pacific", city: "Lima", state: "", country: "Peru", lat: -12.130074, lng: -77.032352, id: "5b8a95a6e07550002c9bdb0b" },
+  { date: "11/4/18", time: "18:20:41", venue: "Central Park", city: "Manhattan", state: "New York", country: "United States", lat: 40.7789786, lng: -73.976205, id: "5bdf5d66db2aeb002c12df4d" },
   // 2019
   { date: "3/16/19", time: "15:37:47", venue: "Cape Henry Lighthouse", city: "Virginia Beach", state: "Virginia", country: "United States", lat: 36.9260536, lng: -76.007748, id: "5c8d184b5b971100256274b8" },
   { date: "7/14/19", time: "20:30:38", venue: "Dunn's Famous", city: "Montreal", state: "", country: "Canada", lat: 45.5004864, lng: -73.571757, id: "5d2b63014c60f30007b3469b" },
