@@ -86,7 +86,7 @@ const SAMPLE_TRAVELS_RAW = [
   { date: "7/14/19", time: "20:30:38", venue: "Dunn's Famous", city: "Montreal", state: "", country: "Canada", lat: 45.5004864, lng: -73.571757, id: "5d2b63014c60f30007b3469b" },
   { date: "7/18/19", time: "20:30:38", venue: "CN Tower revolving observation", city: "Toronto", state: "", country: "Canada", lat: 43.6450795, lng: -79.388903, id: "5d30d6eefe6ba700082ad05a" },
   { date: "8/30/19", time: "19:30:34", venue: "Powell's City of Books", city: "Portland", state: "Oregon", country: "United States", lat: 45.5234684, lng: -122.68142, id: "5d69795a4bed47000823fcb8" },
-  { date: "10/14/19", time: "11:06:39", venue: "Estrella Dominicus", city: "La Romana", state: "", country: "Dominican Republic", lat: 18.351945, lng: -68.827818, id: "5dc69dbfb5a2f900089ce0e8" },
+  { date: "10/14/19", time: "11:06:39", venue: "Estrella Dominicus", city: "La Romana", state: "", country: "Dominican Republic", lat: 18.351945, lng: -68.827818, id: "5da4bf6fbe2f31000875ba7f" },
   { date: "11/9/19", time: "11:06:39", venue: "Cours Saleya Flower Market", city: "Nice", state: "", country: "France", lat: 43.6956772, lng: 7.27453485, id: "5dc69dbfb5a2f900089ce0e8" },
   // 2020
   { date: "1/4/20", time: "07:45:12", venue: "Big Dog Running Co.", city: "Columbus", state: "Georgia", country: "United States", lat: 32.4669426, lng: -84.993244, id: "5e108be3e6b69600089a1325" },
