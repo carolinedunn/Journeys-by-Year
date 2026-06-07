@@ -293,8 +293,8 @@ export default function App() {
                       {/* Content block */}
                       <div className="flex-1 min-w-0">
                         <div className="flex justify-between items-baseline gap-1">
-                          <span className="text-[9px] font-bold uppercase text-slate-400 font-mono">
-                            {chk.date} • {chk.time}
+                          <span className="text-[9px] font-bold uppercase text-slate-400 font-mono" title="Date in GMT / UTC timezone">
+                            {chk.date}
                           </span>
                           <span className="text-[9px] font-bold font-mono text-blue-600 shrink-0">
                             {chk.distanceFromAtlanta.toLocaleString()} km

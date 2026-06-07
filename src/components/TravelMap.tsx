@@ -156,7 +156,7 @@ export default function TravelMap({
         <div class="p-3 font-sans max-w-[280px]">
           <div class="flex items-center gap-1.5 text-[10px] uppercase tracking-wider text-blue-600 font-bold mb-1">
             <span class="bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded">${chk.country}</span>
-            <span>${chk.date} • ${chk.time}</span>
+            <span>${chk.date}</span>
           </div>
           <h4 class="font-bold text-gray-900 text-sm leading-snug">${chk.venueName}</h4>
           <p class="text-xs text-gray-600 mt-0.5">${chk.city}${chk.state ? `, ${chk.state}` : ""}</p>
