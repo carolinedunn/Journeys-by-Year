@@ -134,7 +134,7 @@ const SAMPLE_TRAVELS_RAW = [
   { date: "8/28/24", time: "12:50:09", venue: "Giant's Causeway volcanic columns", city: "Bushmills", state: "", country: "United Kingdom", lat: 55.2343422, lng: -6.5106251 },
   { date: "8/29/24", time: "13:22:58", venue: "Nice", city: "Nice", state: "", country: "France", lat: 43.6987587, lng: 7.26768554 },
   { date: "8/31/24", time: "8:03:03", venue: "Casino de Monte-Carlo", city: "Monte-Carlo", state: "", country: "Monaco", lat: 43.7393007, lng: 7.42773408 },
-  { date: "9/23/24", time: "21:22:38", venue: "Grand Canyon Visitor Center", city: "Grand Canyon", state: "Arizona", country: "United States", lat: 36.0582256, lng: -112.10858 },
+  { date: "9/21/24", time: "13:22:38", venue: "Phoenix Art Museum", city: "Phoenix", state: "Arizona", country: "United States", lat: 33.4665244, lng: -112.07341 },
   { date: "11/2/24", time: "19:44:10", venue: "The Classic Center", city: "Athens", state: "Georgia", country: "United States", lat: 33.9616861, lng: -83.371909 },
   { date: "11/25/24", time: "11:20:15", venue: "Plaza Mayor historic square", city: "Madrid", state: "", country: "Spain", lat: 40.4156515, lng: -3.7071444 },
   { date: "11/28/24", time: "11:18:04", venue: "Alcazar de Segovia fort", city: "Segovia", state: "", country: "Spain", lat: 40.9524599, lng: -4.1319185 },
