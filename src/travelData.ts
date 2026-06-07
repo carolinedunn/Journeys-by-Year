@@ -118,6 +118,9 @@ const SAMPLE_TRAVELS_RAW = [
   { date: "1/8/23", time: "15:31:35", venue: "Providence Canyon State Park", city: "Lumpkin", state: "Georgia", country: "United States", lat: 32.0686323, lng: -84.906531 },
   { date: "2/2/23", time: "18:33:30", venue: "Empire Canyon Lodge", city: "Park City", state: "Utah", country: "United States", lat: 40.6150813, lng: -111.51002 },
   { date: "5/26/23", time: "16:10:24", venue: "Panama Canal Expansion View", city: "Panama City", state: "", country: "Panama", lat: 9.26492899, lng: -79.909899 },
+  { date: "8/24/23", time: "16:10:24", venue: "Deschutes Brewery Portland Public House", city: "Portland", state: "Oregon", country: "United States", lat: 45.5245047, lng: -122.68197 },
+  { date: "8/25/23", time: "16:10:24", venue: "Timberline Lodge", city: "Mount Hood Village", state: "Oregon", country: "United States", lat: 45.3292188, lng: -121.70854 },
+  { date: "8/27/23", time: "16:10:24", venue: "Haystack Rock", city: "Cannon Beach", state: "Oregon", country: "United States", lat: 45.8834837, lng: -123.96331 },
   { date: "11/23/23", time: "14:21:45", venue: "Sky Costanera Tower Observatory", city: "Santiago", state: "", country: "Chile", lat: -33.416961, lng: -70.606828 },
   { date: "12/27/23", time: "0:30:45", venue: "Beach Club St. Simons Island", city: "Saint Simons Island", state: "Georgia", country: "United States", lat: 31.1428239, lng: -81.376156 },
   // 2024
