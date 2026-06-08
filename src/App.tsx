@@ -249,7 +249,7 @@ export default function App() {
                   <p className="text-base font-mono font-bold text-blue-600">
                     {yearTravels.reduce((acc, curr) => acc + curr.distanceFromAtlanta, 0).toLocaleString()}
                   </p>
-                  <p className="text-[8px] text-slate-500 font-medium">KM OUTSIDE ATL</p>
+                  <p className="text-[8px] text-slate-500 font-medium">MILES OUTSIDE ATL</p>
                 </div>
                 
                 <div className="flex-1 bg-slate-100/70 p-3 rounded border border-slate-200/50">
@@ -259,7 +259,7 @@ export default function App() {
                       ? Math.max(...yearTravels.map(t => t.distanceFromAtlanta)).toLocaleString() 
                       : "0"}
                   </p>
-                  <p className="text-[8px] text-slate-500 font-medium">MAX RANGE KM</p>
+                  <p className="text-[8px] text-slate-500 font-medium">MAX RANGE MILES</p>
                 </div>
               </div>
             </div>
@@ -297,7 +297,7 @@ export default function App() {
                             {chk.date}
                           </span>
                           <span className="text-[9px] font-bold font-mono text-blue-600 shrink-0">
-                            {chk.distanceFromAtlanta.toLocaleString()} km
+                            {chk.distanceFromAtlanta.toLocaleString()} mi
                           </span>
                         </div>
 

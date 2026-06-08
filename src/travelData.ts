@@ -3,9 +3,9 @@ import { TravelCheckIn } from "./types";
 // Coordinates for Atlanta (Home Reference)
 export const ATLANTA_COORDS = { lat: 33.7490, lng: -84.3880 };
 
-// Geodesic distance calculation (Haversine formula) in km
+// Geodesic distance calculation (Haversine formula) in miles
 export function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
-  const R = 6371; // Radius of the Earth in km
+  const R = 3958.8; // Radius of the Earth in miles
   const dLat = (lat2 - lat1) * (Math.PI / 180);
   const dLon = (lon2 - lon1) * (Math.PI / 180);
   const a =
@@ -117,10 +117,13 @@ const SAMPLE_TRAVELS_RAW = [
   // 2023
   { date: "1/8/23", time: "15:31:35", venue: "Providence Canyon State Park", city: "Lumpkin", state: "Georgia", country: "United States", lat: 32.0686323, lng: -84.906531 },
   { date: "2/2/23", time: "18:33:30", venue: "Empire Canyon Lodge", city: "Park City", state: "Utah", country: "United States", lat: 40.6150813, lng: -111.51002 },
+  { date: "3/18/23", time: "12:33:30", venue: "Statue of Liberty", city: "New York City", state: "New York", country: "United States", lat: 40.6885997, lng: -74.044055 },
+  { date: "4/30/23", time: "12:33:30", venue: "Central Park", city: "New York City", state: "New York", country: "United States", lat: 40.7647996, lng: -73.9724 },
   { date: "5/26/23", time: "16:10:24", venue: "Panama Canal Expansion View", city: "Panama City", state: "", country: "Panama", lat: 9.26492899, lng: -79.909899 },
   { date: "8/24/23", time: "16:10:24", venue: "Deschutes Brewery Portland Public House", city: "Portland", state: "Oregon", country: "United States", lat: 45.5245047, lng: -122.68197 },
   { date: "8/25/23", time: "16:10:24", venue: "Timberline Lodge", city: "Mount Hood Village", state: "Oregon", country: "United States", lat: 45.3292188, lng: -121.70854 },
   { date: "8/27/23", time: "16:10:24", venue: "Haystack Rock", city: "Cannon Beach", state: "Oregon", country: "United States", lat: 45.8834837, lng: -123.96331 },
+  { date: "11/20/23", time: "14:21:45", venue: "Reloj de Flores", city: "Vina del Mar", state: "", country: "Chile", lat: -33.023575, lng: -71.568283 },
   { date: "11/23/23", time: "14:21:45", venue: "Sky Costanera Tower Observatory", city: "Santiago", state: "", country: "Chile", lat: -33.416961, lng: -70.606828 },
   { date: "12/27/23", time: "0:30:45", venue: "Beach Club St. Simons Island", city: "Saint Simons Island", state: "Georgia", country: "United States", lat: 31.1428239, lng: -81.376156 },
   // 2024

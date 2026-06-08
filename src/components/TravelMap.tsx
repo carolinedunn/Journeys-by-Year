@@ -163,7 +163,7 @@ export default function TravelMap({
           
           <div class="mt-2.5 pt-2 border-t border-gray-100 flex items-center justify-between text-xs">
             <span class="text-gray-500 font-mono">Distance from ATL:</span>
-            <span class="font-bold text-gray-800 font-mono font-medium">${chk.distanceFromAtlanta.toLocaleString()} km</span>
+            <span class="font-bold text-gray-800 font-mono font-medium">${chk.distanceFromAtlanta.toLocaleString()} mi</span>
           </div>
           <div class="mt-1 flex items-center justify-between text-[9px] text-gray-400 font-mono">
             <span>Lat: ${chk.latitude.toFixed(4)}</span>

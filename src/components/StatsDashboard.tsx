@@ -41,33 +41,33 @@ export default function StatsDashboard({
       
       {/* Total Mileage Counter Card */}
       <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white rounded-2xl p-5 shadow-lg border border-slate-700/50 flex flex-col justify-between group overflow-hidden relative">
-        <div className="absolute right-0 bottom-0 translate-x-4 translate-y-4 text-slate-800/20 group-hover:scale-125 transition-transform duration-500">
+        <div className="absolute right-0 bottom-0 translate-x-4 translate-y-4 text-slate-800/20 group-hover:scale-125 transition-transform duration-500 pointer-events-none z-0">
           <Milestone className="h-28 w-28" />
         </div>
         
-        <div>
+        <div className="relative z-10">
           <span className="text-[10px] uppercase font-bold tracking-widest text-slate-400">Selected Year Mileage</span>
           <h3 className="text-3xl font-extrabold tracking-tight mt-1 font-mono text-blue-400">
-            {totalDistanceThisYear.toLocaleString()} <span className="text-sm font-medium text-white/80">km</span>
+            {totalDistanceThisYear.toLocaleString()} <span className="text-sm font-medium text-white/80">mi</span>
           </h3>
           <p className="text-xs text-slate-300 mt-2 line-clamp-2">
             Home to destination flights cumulative distance outside Atlanta in {selectedYear}.
           </p>
         </div>
 
-        <div className="mt-4 pt-3 border-t border-slate-700 flex justify-between items-center text-xs text-slate-400 font-mono">
+        <div className="mt-4 pt-3 border-t border-slate-700 flex justify-between items-center text-xs text-slate-400 font-mono relative z-10">
           <span>All-Time Cumulative:</span>
-          <span className="font-bold text-white">{totalDistanceAllTime.toLocaleString()} km</span>
+          <span className="font-bold text-white">{totalDistanceAllTime.toLocaleString()} mi</span>
         </div>
       </div>
 
       {/* Global Countries Explorer Card */}
       <div className="bg-white rounded-2xl p-5 shadow-md border border-slate-100 flex flex-col justify-between group overflow-hidden relative">
-        <div className="absolute right-0 bottom-0 translate-x-4 translate-y-4 text-emerald-50 group-hover:scale-125 transition-transform duration-500">
+        <div className="absolute right-0 bottom-0 translate-x-4 translate-y-4 text-emerald-50 group-hover:scale-125 transition-transform duration-500 pointer-events-none z-0">
           <Globe className="h-28 w-28" />
         </div>
 
-        <div>
+        <div className="relative z-10">
           <span className="text-[10px] uppercase font-bold tracking-widest text-slate-400">Countries Visited</span>
           <h3 className="text-3xl font-extrabold tracking-tight mt-1 font-sans text-emerald-600">
             {countriesThisYear.length || "0"}{" "}
@@ -79,7 +79,7 @@ export default function StatsDashboard({
           </p>
         </div>
 
-        <div className="mt-4 pt-3 border-t border-slate-100 flex justify-between items-center text-xs text-slate-400 font-mono">
+        <div className="mt-4 pt-3 border-t border-slate-100 flex justify-between items-center text-xs text-slate-400 font-mono relative z-10">
           <span>Total Footprint:</span>
           <span className="font-bold text-slate-700">{distinctCountriesAllTime} Countries</span>
         </div>
@@ -87,11 +87,11 @@ export default function StatsDashboard({
 
       {/* Extreme Point - Furthest Travel Card */}
       <div className="bg-white rounded-2xl p-5 shadow-md border border-slate-100 flex flex-col justify-between group overflow-hidden relative">
-        <div className="absolute right-0 bottom-0 translate-x-4 translate-y-4 text-rose-50 group-hover:scale-125 transition-transform duration-500">
+        <div className="absolute right-0 bottom-0 translate-x-4 translate-y-4 text-rose-50 group-hover:scale-125 transition-transform duration-500 pointer-events-none z-0">
           <Award className="h-28 w-28" />
         </div>
 
-        <div>
+        <div className="relative z-10">
           <span className="text-[10px] uppercase font-bold tracking-widest text-slate-400">Furthest Pivot Point</span>
           {furthestDestinationThisYear ? (
             <>
@@ -100,7 +100,7 @@ export default function StatsDashboard({
               </h3>
               <p className="text-xs text-slate-500 mt-1 line-clamp-2">
                 <span className="font-bold">{furthestDestinationThisYear.venueName}</span> at{" "}
-                <span className="font-mono text-[11px] font-medium text-slate-600 bg-rose-50 px-1 py-0.5 rounded focus:outline-none">{furthestDestinationThisYear.distanceFromAtlanta.toLocaleString()} km</span> from base.
+                <span className="font-mono text-[11px] font-medium text-slate-600 bg-rose-50 px-1 py-0.5 rounded focus:outline-none">{furthestDestinationThisYear.distanceFromAtlanta.toLocaleString()} mi</span> from base.
               </p>
             </>
           ) : (
@@ -111,7 +111,7 @@ export default function StatsDashboard({
           )}
         </div>
 
-        <div className="mt-4 pt-3 border-t border-slate-100 flex justify-between items-center text-xs text-slate-400 font-mono">
+        <div className="mt-4 pt-3 border-t border-slate-100 flex justify-between items-center text-xs text-slate-400 font-mono relative z-10">
           <span>Active Venue:</span>
           <span className="font-bold text-slate-700 max-w-[120px] truncate">
             {furthestDestinationThisYear?.venueName || "None"}
@@ -121,11 +121,11 @@ export default function StatsDashboard({
 
       {/* Trip Frequency Statistics Card */}
       <div className="bg-white rounded-2xl p-5 shadow-md border border-slate-100 flex flex-col justify-between group overflow-hidden relative">
-        <div className="absolute right-0 bottom-0 translate-x-4 translate-y-4 text-blue-50 group-hover:scale-125 transition-transform duration-500">
+        <div className="absolute right-0 bottom-0 translate-x-4 translate-y-4 text-blue-50 group-hover:scale-125 transition-transform duration-500 pointer-events-none z-0">
           <Compass className="h-28 w-28" />
         </div>
 
-        <div>
+        <div className="relative z-10">
           <span className="text-[10px] uppercase font-bold tracking-widest text-slate-400">Checkin Densities</span>
           <h3 className="text-3xl font-extrabold tracking-tight mt-1 text-blue-600">
             {checkinsThisYear}{" "}
@@ -136,7 +136,7 @@ export default function StatsDashboard({
           </p>
         </div>
 
-        <div className="mt-4 pt-3 border-t border-slate-100 flex justify-between items-center text-xs text-slate-400 font-mono">
+        <div className="mt-4 pt-3 border-t border-slate-100 flex justify-between items-center text-xs text-slate-400 font-mono relative z-10">
           <span>Life-time Logins:</span>
           <span className="font-bold text-slate-700">{totalCheckinsAllTime} check-ins</span>
         </div>
