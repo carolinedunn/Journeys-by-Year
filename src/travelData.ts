@@ -50,9 +50,8 @@ const SAMPLE_TRAVELS_RAW = [
   { date: "3/22/12", time: "19:37:01", venue: "Hawai'i Volcanoes National Park", city: "Volcano", state: "Hawaii", country: "United States", lat: 19.4296073, lng: -155.25727 },
   // 2013
   { date: "3/21/13", time: "15:10:25", venue: "Carmen Bed and Breakfast", city: "Rio de Janeiro", state: "", country: "Brazil", lat: -22.917161, lng: -43.178952 },
+  { date: "3/25/13", time: "20:00:11", venue: "Christ the Redeemer", city: "Rio de Janeiro", state: "", country: "Brazil", lat: -22.951475, lng: -43.210842 },
   { date: "3/26/13", time: "20:57:43", venue: "Iguazú National Park", city: "Foz do Iguacu", state: "", country: "Brazil", lat: -25.550372, lng: -54.574474 },
-  { date: "7/11/13", time: "20:00:11", venue: "Christ the Redeemer", city: "Rio de Janeiro", state: "", country: "Brazil", lat: -22.951475, lng: -43.210842 },
-  { date: "7/16/13", time: "21:36:52", venue: "Iguazú Falls", city: "Puerto Iguazu", state: "", country: "Argentina", lat: -25.642617, lng: -54.436862 },
   // 2014
   { date: "2/1/14", time: "15:57:39", venue: "ABQ BioPark Aquarium", city: "Albuquerque", state: "New Mexico", country: "United States", lat: 35.0938619, lng: -106.67907 },
   { date: "2/3/14", time: "16:57:50", venue: "Georgia O'Keeffe Museum", city: "Santa Fe", state: "New Mexico", country: "United States", lat: 35.6888976, lng: -105.94157 },
@@ -165,6 +164,59 @@ const SAMPLE_TRAVELS_RAW = [
   { date: "5/17/26", time: "18:04:19", venue: "Ott Vineyards and Winery", city: "Ellijay", state: "Georgia", country: "United States", lat: 34.6082699, lng: -84.420377 },
   { date: "5/30/26", time: "08:04:19", venue: "The Chattanoogan Hotel", city: "Chattanooga", state: "Tennessee", country: "United States", lat: 35.0406625, lng: -85.3124794 }
 ];
+
+export function getContinentForCountry(country: string): string {
+  if (!country) return "North America";
+  const c = country.trim().toLowerCase();
+  if (
+    c.includes("united states") || 
+    c.includes("usa") || 
+    c.includes("canada") || 
+    c.includes("mexico") || 
+    c.includes("dominican") || 
+    c.includes("panama") || 
+    c.includes("jamaica") || 
+    c.includes("behamas") || 
+    c.includes("bahamas") ||
+    c.includes("puerto rico")
+  ) {
+    return "North America";
+  }
+  if (
+    c.includes("brazil") || 
+    c.includes("argentina") || 
+    c.includes("peru") || 
+    c.includes("chile")
+  ) {
+    return "South America";
+  }
+  if (
+    c.includes("italy") || 
+    c.includes("france") || 
+    c.includes("ireland") || 
+    c.includes("united kingdom") || 
+    c.includes("monaco") || 
+    c.includes("spain") || 
+    c.includes("malta") || 
+    c.includes("greece")
+  ) {
+    return "Europe";
+  }
+  if (
+    c.includes("singapore") || 
+    c.includes("malaysia") || 
+    c.includes("cambodia") || 
+    c.includes("india") || 
+    c.includes("japan") || 
+    c.includes("turkey")
+  ) {
+    return "Asia";
+  }
+  if (c.includes("egypt")) {
+    return "Africa";
+  }
+  return "North America"; // Default fallback
+}
 
 export function getParsedTravels(): TravelCheckIn[] {
   return SAMPLE_TRAVELS_RAW.map((row, index) => {

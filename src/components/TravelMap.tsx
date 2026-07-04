@@ -348,12 +348,6 @@ export default function TravelMap({
       {/* Actual Map Container */}
       <div id="map" ref={mapContainerRef} className="w-full h-full z-10" />
 
-      {/* Map Ocean/Land indicator overlay at bottom right */}
-      <div className="absolute bottom-4 left-4 z-[1000] pointer-events-none bg-slate-950/80 backdrop-blur-sm text-[10px] text-slate-300 font-mono px-3 py-1.5 rounded-lg border border-slate-800 flex items-center gap-1.5 shadow-lg">
-        <div className="w-2.5 h-2.5 rounded bg-blue-500 border border-blue-400"></div>
-        <span>Blue for Oceans Mode Loaded</span>
-      </div>
-
       {/* Floating coordinates viewer at center bottom */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-[1000] bg-white/95 border border-slate-100 shadow-md backdrop-blur-sm px-3.5 py-1.5 rounded-full flex items-center gap-4 text-xs font-mono text-slate-600">
         <div className="flex items-center gap-1.5">

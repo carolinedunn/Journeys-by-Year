@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { getParsedTravels, ATLANTA_COORDS } from "./travelData";
+import { getParsedTravels, ATLANTA_COORDS, getContinentForCountry } from "./travelData";
 import { TravelCheckIn, MapStyleOption } from "./types";
 import TravelMap from "./components/TravelMap";
 import StatsDashboard from "./components/StatsDashboard";
@@ -52,6 +52,7 @@ export default function App() {
 
   // Set default active year to 2015 as it has very beautiful travels globally
   const [selectedYear, setSelectedYear] = useState<number>(2015);
+  const [selectedContinent, setSelectedContinent] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [activeMapStyle, setActiveMapStyle] = useState<MapStyleOption>(MAP_STYLES[0]);
   const [highlightedCheckin, setHighlightedCheckin] = useState<TravelCheckIn | null>(null);
@@ -76,17 +77,29 @@ export default function App() {
     return allTravels.filter((t) => t.year === selectedYear);
   }, [allTravels, selectedYear]);
 
+  // Filter travels based on selected continent (all-time) or selected year (all continents)
   const filteredTravels = useMemo(() => {
-    if (!searchQuery.trim()) return yearTravels;
-    const lowerQuery = searchQuery.toLowerCase();
-    return yearTravels.filter(
-      (t) =>
-        t.venueName.toLowerCase().includes(lowerQuery) ||
-        t.city.toLowerCase().includes(lowerQuery) ||
-        t.country.toLowerCase().includes(lowerQuery) ||
-        (t.state && t.state.toLowerCase().includes(lowerQuery))
-    );
-  }, [yearTravels, searchQuery]);
+    let list = allTravels;
+    if (selectedContinent !== "All") {
+      list = allTravels.filter((t) => getContinentForCountry(t.country) === selectedContinent);
+    } else {
+      list = allTravels.filter((t) => t.year === selectedYear);
+    }
+
+    if (searchQuery.trim()) {
+      const lowerQuery = searchQuery.toLowerCase();
+      list = list.filter(
+        (t) =>
+          t.venueName.toLowerCase().includes(lowerQuery) ||
+          t.city.toLowerCase().includes(lowerQuery) ||
+          t.country.toLowerCase().includes(lowerQuery) ||
+          (t.state && t.state.toLowerCase().includes(lowerQuery))
+      );
+    }
+
+    // Sort by date descending (newest first)
+    return [...list].sort((a, b) => b.dateObj.getTime() - a.dateObj.getTime());
+  }, [allTravels, selectedContinent, selectedYear, searchQuery]);
 
   // Handle active travel node selection
   const handleSelectCheckin = (checkin: TravelCheckIn | null) => {
@@ -102,18 +115,12 @@ export default function App() {
         {/* Header Navigation */}
         <header className="h-16 flex items-center justify-between px-6 sm:px-8 bg-white border-b border-slate-200 shrink-0 z-10">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-blue-600 rounded-sm flex items-center justify-center text-white font-extrabold tracking-tight">N</div>
+            <div className="w-8 h-8 bg-blue-600 rounded-sm flex items-center justify-center text-white font-extrabold tracking-tight">D</div>
             <h1 className="text-sm font-semibold tracking-tight uppercase text-slate-700">
-              Nomad Ledger
+              Travels of Caroline & Paul Dunn
             </h1>
           </div>
           <div className="flex gap-2 sm:gap-4 items-center">
-            <div className="hidden sm:block px-3 py-1 bg-slate-100 rounded text-[10px] font-bold uppercase tracking-wider text-slate-500 border border-slate-200">
-              Global Haversine View
-            </div>
-            <div className="px-3 py-1 bg-blue-600 rounded text-[10px] font-bold uppercase tracking-wider text-white">
-              Verified Trajectories
-            </div>
           </div>
         </header>
 
@@ -133,6 +140,7 @@ export default function App() {
                     key={y}
                     onClick={() => {
                       setSelectedYear(y);
+                      setSelectedContinent("All");
                       setSearchQuery("");
                       setHighlightedCheckin(null);
                     }}
@@ -169,7 +177,7 @@ export default function App() {
                   Interactive Spatiotemporal Matrix
                 </span>
                 <h2 className="text-xl font-bold tracking-tight text-slate-900 mt-1">
-                  Journeys in {selectedYear}
+                  {selectedContinent === "All" ? `Journeys in ${selectedYear}` : `Journeys in ${selectedContinent}`}
                 </h2>
               </div>
 
@@ -186,29 +194,34 @@ export default function App() {
               </div>
             </div>
 
-            {/* Style Selector and Sea View Note */}
+            {/* Continent Selector (Replaces Ocean Theme) */}
             <div className="flex flex-wrap items-center justify-between gap-3 p-3 bg-slate-100/85 border border-slate-200 rounded-lg">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1 mr-1">
-                  <Layers className="h-3.5 w-3.5 text-slate-500" />
-                  Ocean Theme:
+                  <Globe className="h-3.5 w-3.5 text-slate-500" />
+                  Select Continent:
                 </span>
-                {MAP_STYLES.map((style) => (
+                {["All", "North America", "South America", "Europe", "Asia", "Africa"].map((continent) => (
                   <button
-                    key={style.id}
-                    onClick={() => setActiveMapStyle(style)}
-                    className={`py-1 px-2 text-[11px] rounded transition-all font-medium ${
-                      activeMapStyle.id === style.id
-                        ? "bg-slate-900 text-white font-bold"
+                    key={continent}
+                    onClick={() => {
+                      setSelectedContinent(continent);
+                      setHighlightedCheckin(null);
+                    }}
+                    className={`py-1 px-2.5 text-[11px] rounded transition-all font-medium ${
+                      selectedContinent === continent
+                        ? "bg-blue-600 text-white font-bold shadow-sm"
                         : "bg-white hover:bg-slate-50 text-slate-600 border border-slate-200"
                     }`}
                   >
-                    {style.name}
+                    {continent}
                   </button>
                 ))}
               </div>
               <span className="text-[10px] text-slate-500 italic hidden md:inline">
-                Blue indicates depth bathymetry for oceans.
+                {selectedContinent === "All" 
+                  ? "Showing all destinations for selected year." 
+                  : `Showing all destinations in ${selectedContinent} (all-time).`}
               </span>
             </div>
 
@@ -237,7 +250,7 @@ export default function App() {
             {/* Summary Block */}
             <div className="p-6 border-b border-slate-100 bg-slate-50/50">
               <h2 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-1">
-                SUMMARY {selectedYear}
+                SUMMARY {selectedContinent === "All" ? selectedYear : selectedContinent}
               </h2>
               <p className="text-2xl font-serif italic text-slate-800">
                 {filteredTravels.length} Destinations
@@ -247,7 +260,7 @@ export default function App() {
                 <div className="flex-1 bg-slate-100/70 p-3 rounded border border-slate-200/50">
                   <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Distance</p>
                   <p className="text-base font-mono font-bold text-blue-600">
-                    {yearTravels.reduce((acc, curr) => acc + curr.distanceFromAtlanta, 0).toLocaleString()}
+                    {filteredTravels.reduce((acc, curr) => acc + curr.distanceFromAtlanta, 0).toLocaleString()}
                   </p>
                   <p className="text-[8px] text-slate-500 font-medium">MILES OUTSIDE ATL</p>
                 </div>
@@ -255,8 +268,8 @@ export default function App() {
                 <div className="flex-1 bg-slate-100/70 p-3 rounded border border-slate-200/50">
                   <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Peak Stop</p>
                   <p className="text-base font-mono font-bold text-emerald-600">
-                    {yearTravels.length > 0 
-                      ? Math.max(...yearTravels.map(t => t.distanceFromAtlanta)).toLocaleString() 
+                    {filteredTravels.length > 0 
+                      ? Math.max(...filteredTravels.map(t => t.distanceFromAtlanta)).toLocaleString() 
                       : "0"}
                   </p>
                   <p className="text-[8px] text-slate-500 font-medium">MAX RANGE MILES</p>
@@ -372,8 +385,9 @@ export default function App() {
       <div className="w-full max-w-7xl mx-auto mt-4 px-2 sm:px-0">
         <StatsDashboard 
           allTravels={allTravels} 
-          filteredTravels={yearTravels} 
+          filteredTravels={filteredTravels} 
           selectedYear={selectedYear} 
+          selectedContinent={selectedContinent}
         />
       </div>
 

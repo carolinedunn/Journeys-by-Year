@@ -1,18 +1,22 @@
 import React from "react";
 import { TravelCheckIn } from "../types";
-import { Milestone, Globe, Award, Compass, Heart, MapPin, Zap } from "lucide-react";
+import { Milestone, Globe, Award, Compass } from "lucide-react";
 
 interface StatsDashboardProps {
   allTravels: TravelCheckIn[];
   filteredTravels: TravelCheckIn[];
   selectedYear: number;
+  selectedContinent?: string;
 }
 
 export default function StatsDashboard({
   allTravels,
   filteredTravels,
-  selectedYear
+  selectedYear,
+  selectedContinent = "All"
 }: StatsDashboardProps) {
+  const isContinentFiltered = selectedContinent !== "All";
+
   // 1. Calculate General Footprint
   const totalCheckinsAllTime = allTravels.length;
   const distinctCountriesAllTime = Array.from(new Set(allTravels.map(t => t.country))).filter(Boolean).length;
@@ -23,12 +27,12 @@ export default function StatsDashboard({
   const countriesThisYear = Array.from(new Set(filteredTravels.map(t => t.country))).filter(Boolean);
   const totalDistanceThisYear = filteredTravels.reduce((acc, current) => acc + current.distanceFromAtlanta, 0);
 
-  // 3. Find furthest destination from Atlanta this year
+  // 3. Find furthest destination from Atlanta this year/continent
   const furthestDestinationThisYear = filteredTravels.reduce((max, current) => {
     return current.distanceFromAtlanta > (max?.distanceFromAtlanta || 0) ? current : max;
   }, null as TravelCheckIn | null);
 
-  // 4. Most active cities this year
+  // 4. Most active cities this year/continent
   const cityCounts: { [city: string]: number } = {};
   filteredTravels.forEach(t => {
     const key = `${t.city}${t.country ? `, ${t.country}` : ""}`;
@@ -46,12 +50,14 @@ export default function StatsDashboard({
         </div>
         
         <div className="relative z-10">
-          <span className="text-[10px] uppercase font-bold tracking-widest text-slate-400">Selected Year Mileage</span>
+          <span className="text-[10px] uppercase font-bold tracking-widest text-slate-400">
+            {isContinentFiltered ? "Selected Continent Mileage" : "Selected Year Mileage"}
+          </span>
           <h3 className="text-3xl font-extrabold tracking-tight mt-1 font-mono text-blue-400">
             {totalDistanceThisYear.toLocaleString()} <span className="text-sm font-medium text-white/80">mi</span>
           </h3>
           <p className="text-xs text-slate-300 mt-2 line-clamp-2">
-            Home to destination flights cumulative distance outside Atlanta in {selectedYear}.
+            Home to destination flights cumulative distance outside Atlanta in {isContinentFiltered ? selectedContinent : selectedYear}.
           </p>
         </div>
 
@@ -68,13 +74,15 @@ export default function StatsDashboard({
         </div>
 
         <div className="relative z-10">
-          <span className="text-[10px] uppercase font-bold tracking-widest text-slate-400">Countries Visited</span>
+          <span className="text-[10px] uppercase font-bold tracking-widest text-slate-400">
+            {isContinentFiltered ? "Countries in Continent" : "Countries Visited"}
+          </span>
           <h3 className="text-3xl font-extrabold tracking-tight mt-1 font-sans text-emerald-600">
             {countriesThisYear.length || "0"}{" "}
             <span className="text-xs font-normal text-slate-400">countries</span>
           </h3>
           <p className="text-xs text-slate-500 mt-2 line-clamp-2">
-            Visited countries this year: {countriesThisYear.slice(0, 3).join(", ") || "None"}
+            {isContinentFiltered ? "Countries in this continent" : "Visited countries this year"}: {countriesThisYear.slice(0, 3).join(", ") || "None"}
             {countriesThisYear.length > 3 ? " & more" : ""}.
           </p>
         </div>
@@ -106,7 +114,7 @@ export default function StatsDashboard({
           ) : (
             <>
               <h3 className="text-xl font-bold text-slate-400 mt-2">No Travels</h3>
-              <p className="text-xs text-slate-500 mt-1">Select a year with trips to find stats.</p>
+              <p className="text-xs text-slate-500 mt-1">Select a year or continent with trips to find stats.</p>
             </>
           )}
         </div>
