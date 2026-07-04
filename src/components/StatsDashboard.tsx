@@ -7,15 +7,18 @@ interface StatsDashboardProps {
   filteredTravels: TravelCheckIn[];
   selectedYear: number;
   selectedContinent?: string;
+  searchQuery?: string;
 }
 
 export default function StatsDashboard({
   allTravels,
   filteredTravels,
   selectedYear,
-  selectedContinent = "All"
+  selectedContinent = "All",
+  searchQuery = ""
 }: StatsDashboardProps) {
-  const isContinentFiltered = selectedContinent !== "All";
+  const isSearchActive = searchQuery.trim().length > 0;
+  const isContinentFiltered = !isSearchActive && selectedContinent !== "All";
 
   // 1. Calculate General Footprint
   const totalCheckinsAllTime = allTravels.length;
@@ -51,13 +54,15 @@ export default function StatsDashboard({
         
         <div className="relative z-10">
           <span className="text-[10px] uppercase font-bold tracking-widest text-slate-400">
-            {isContinentFiltered ? "Selected Continent Mileage" : "Selected Year Mileage"}
+            {isSearchActive ? "Search Match Mileage" : (isContinentFiltered ? "Selected Continent Mileage" : "Selected Year Mileage")}
           </span>
           <h3 className="text-3xl font-extrabold tracking-tight mt-1 font-mono text-blue-400">
             {totalDistanceThisYear.toLocaleString()} <span className="text-sm font-medium text-white/80">mi</span>
           </h3>
           <p className="text-xs text-slate-300 mt-2 line-clamp-2">
-            Home to destination flights cumulative distance outside Atlanta in {isContinentFiltered ? selectedContinent : selectedYear}.
+            {isSearchActive 
+              ? `Home to destination flights cumulative distance for search: "${searchQuery}".`
+              : `Home to destination flights cumulative distance outside Atlanta in ${isContinentFiltered ? selectedContinent : selectedYear}.`}
           </p>
         </div>
 
@@ -75,14 +80,14 @@ export default function StatsDashboard({
 
         <div className="relative z-10">
           <span className="text-[10px] uppercase font-bold tracking-widest text-slate-400">
-            {isContinentFiltered ? "Countries in Continent" : "Countries Visited"}
+            {isSearchActive ? "Matched Countries" : (isContinentFiltered ? "Countries in Continent" : "Countries Visited")}
           </span>
           <h3 className="text-3xl font-extrabold tracking-tight mt-1 font-sans text-emerald-600">
             {countriesThisYear.length || "0"}{" "}
             <span className="text-xs font-normal text-slate-400">countries</span>
           </h3>
           <p className="text-xs text-slate-500 mt-2 line-clamp-2">
-            {isContinentFiltered ? "Countries in this continent" : "Visited countries this year"}: {countriesThisYear.slice(0, 3).join(", ") || "None"}
+            {isSearchActive ? "Countries in search matches" : (isContinentFiltered ? "Countries in this continent" : "Visited countries this year")}: {countriesThisYear.slice(0, 3).join(", ") || "None"}
             {countriesThisYear.length > 3 ? " & more" : ""}.
           </p>
         </div>

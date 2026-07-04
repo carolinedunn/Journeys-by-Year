@@ -80,11 +80,6 @@ export default function App() {
   // Filter travels based on selected continent (all-time) or selected year (all continents)
   const filteredTravels = useMemo(() => {
     let list = allTravels;
-    if (selectedContinent !== "All") {
-      list = allTravels.filter((t) => getContinentForCountry(t.country) === selectedContinent);
-    } else {
-      list = allTravels.filter((t) => t.year === selectedYear);
-    }
 
     if (searchQuery.trim()) {
       const lowerQuery = searchQuery.toLowerCase();
@@ -95,6 +90,12 @@ export default function App() {
           t.country.toLowerCase().includes(lowerQuery) ||
           (t.state && t.state.toLowerCase().includes(lowerQuery))
       );
+    } else {
+      if (selectedContinent !== "All") {
+        list = allTravels.filter((t) => getContinentForCountry(t.country) === selectedContinent);
+      } else {
+        list = allTravels.filter((t) => t.year === selectedYear);
+      }
     }
 
     // Sort by date descending (newest first)
@@ -177,7 +178,9 @@ export default function App() {
                   Interactive Spatiotemporal Matrix
                 </span>
                 <h2 className="text-xl font-bold tracking-tight text-slate-900 mt-1">
-                  {selectedContinent === "All" ? `Journeys in ${selectedYear}` : `Journeys in ${selectedContinent}`}
+                  {searchQuery.trim() 
+                    ? `Search Results: "${searchQuery}" (All-Time)` 
+                    : (selectedContinent === "All" ? `Journeys in ${selectedYear}` : `Journeys in ${selectedContinent}`)}
                 </h2>
               </div>
 
@@ -250,7 +253,7 @@ export default function App() {
             {/* Summary Block */}
             <div className="p-6 border-b border-slate-100 bg-slate-50/50">
               <h2 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-1">
-                SUMMARY {selectedContinent === "All" ? selectedYear : selectedContinent}
+                SUMMARY {searchQuery.trim() ? "SEARCH RESULTS" : (selectedContinent === "All" ? selectedYear : selectedContinent)}
               </h2>
               <p className="text-2xl font-serif italic text-slate-800">
                 {filteredTravels.length} Destinations
@@ -388,6 +391,7 @@ export default function App() {
           filteredTravels={filteredTravels} 
           selectedYear={selectedYear} 
           selectedContinent={selectedContinent}
+          searchQuery={searchQuery}
         />
       </div>
 
