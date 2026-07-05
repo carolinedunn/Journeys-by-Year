@@ -98,8 +98,8 @@ export default function App() {
       }
     }
 
-    // Sort by date descending (newest first)
-    return [...list].sort((a, b) => b.dateObj.getTime() - a.dateObj.getTime());
+    // Sort by date ascending (oldest to newest)
+    return [...list].sort((a, b) => a.dateObj.getTime() - b.dateObj.getTime());
   }, [allTravels, selectedContinent, selectedYear, searchQuery]);
 
   // Handle active travel node selection
@@ -204,7 +204,7 @@ export default function App() {
                   <Globe className="h-3.5 w-3.5 text-slate-500" />
                   Select Continent:
                 </span>
-                {["All", "North America", "South America", "Europe", "Asia", "Africa"].map((continent) => (
+                {["All", "North America", "South America", "Europe", "Asia", "Africa", "Oceania"].map((continent) => (
                   <button
                     key={continent}
                     onClick={() => {
@@ -309,7 +309,7 @@ export default function App() {
                       {/* Content block */}
                       <div className="flex-1 min-w-0">
                         <div className="flex justify-between items-baseline gap-1">
-                          <span className="text-[9px] font-bold uppercase text-slate-400 font-mono" title="Date in GMT / UTC timezone">
+                          <span className="text-[9px] font-bold uppercase text-slate-400 font-mono" title={`Converted to local timezone (Offset: ${chk.timezoneOffset! >= 0 ? '+' : ''}${chk.timezoneOffset}h from original GMT)`}>
                             {chk.date}
                           </span>
                           <span className="text-[9px] font-bold font-mono text-blue-600 shrink-0">

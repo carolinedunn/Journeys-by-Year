@@ -154,7 +154,7 @@ export default function TravelMap({
       // Bind detailed contextual popup
       pMarker.bindPopup(`
         <div class="p-3 font-sans max-w-[280px]">
-          <div class="flex items-center gap-1.5 text-[10px] uppercase tracking-wider text-blue-600 font-bold mb-1">
+          <div class="flex items-center gap-1.5 text-[10px] uppercase tracking-wider text-blue-600 font-bold mb-1 flex-wrap">
             <span class="bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded">${chk.country}</span>
             <span>${chk.date}</span>
           </div>
@@ -165,7 +165,7 @@ export default function TravelMap({
             <span class="text-gray-500 font-mono">Distance from ATL:</span>
             <span class="font-bold text-gray-800 font-mono font-medium">${chk.distanceFromAtlanta.toLocaleString()} mi</span>
           </div>
-          <div class="mt-1 flex items-center justify-between text-[9px] text-gray-400 font-mono">
+          <div class="mt-1 pt-1 border-t border-dashed border-gray-100 flex items-center justify-between text-[9px] text-gray-400 font-mono">
             <span>Lat: ${chk.latitude.toFixed(4)}</span>
             <span>Lng: ${chk.longitude.toFixed(4)}</span>
           </div>

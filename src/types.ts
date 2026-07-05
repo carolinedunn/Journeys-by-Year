@@ -1,6 +1,5 @@
 export interface TravelCheckIn {
   date: string;
-  time: string;
   venueName: string;
   city: string;
   state: string;
@@ -11,6 +10,8 @@ export interface TravelCheckIn {
   year: number;
   dateObj: Date;
   distanceFromAtlanta: number; // in km or miles
+  utcDate?: string;
+  timezoneOffset?: number;
 }
 
 export interface MapStyleOption {
