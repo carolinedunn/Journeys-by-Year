@@ -49,7 +49,7 @@ const SAMPLE_TRAVELS_RAW = [
   // 2005
   { date: "1/1/05", venue: "Mt. Rose", city: "Incline Village", state: "Nevada", country: "United States", lat: 39.2677635, lng: -120.160999 },
   { date: "5/2/05", venue: "AstroWorld", city: "Houston", state: "Texas", country: "United States", lat: 29.6767243, lng: -95.413319 },
-  { date: "6/30/05", venue: "National Capital of Cuba", city: "Havana", state: "", country: "Cuba", lat: 3.1349853, lng: -82.3596036 },
+  { date: "6/30/05", venue: "National Capital of Cuba", city: "Havana", state: "", country: "Cuba", lat: 23.1349853, lng: -82.3596036 },
   { date: "7/2/05", venue: "Viñales Valley", city: "Viñales", state: "", country: "Cuba", lat: 22.6082939, lng: -83.7287568 },
   { date: "7/6/05", venue: "Bubba Gump Shrimp Co", city: "Cancun", state: "", country: "Mexico", lat: 21.1183285, lng: -86.7577583 },
   { date: "7/16/05", venue: "The Alamo", city: "San Antonio", state: "Texas", country: "United States", lat: 29.4259717, lng: -98.4887222 },
