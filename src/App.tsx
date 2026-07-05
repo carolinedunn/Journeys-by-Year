@@ -50,8 +50,12 @@ const MAP_STYLES: MapStyleOption[] = [
 export default function App() {
   const allTravels = useMemo(() => getParsedTravels(), []);
 
-  // Set default active year to 2015 as it has very beautiful travels globally
-  const [selectedYear, setSelectedYear] = useState<number>(2015);
+  // Set default active year to the most recent year (e.g. 2026)
+  const [selectedYear, setSelectedYear] = useState<number>(() => {
+    const parsed = getParsedTravels();
+    if (parsed.length === 0) return 2026;
+    return Math.max(...parsed.map((t) => t.year));
+  });
   const [selectedContinent, setSelectedContinent] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [activeMapStyle, setActiveMapStyle] = useState<MapStyleOption>(MAP_STYLES[0]);

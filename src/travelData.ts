@@ -31,6 +31,8 @@ const SAMPLE_TRAVELS_RAW = [
   { date: "08/31/02", venue: "Catedral Basilica Menor de San Juan Bautista", city: "San Juan", state: "", country: "Puerto Rico", lat: 18.4659178, lng: -66.1201931 },
   // 2003
   { date: "03/28/03", venue: "Universal Studios Orlando", city: "Orlando", state: "Florida", country: "United States", lat: 28.4723576, lng: -81.471578 },
+  { date: "8/8/03", venue: "Dollywood", city: "Pigeon Forge", state: "Tennessee", country: "United States", lat: 35.7951069, lng: -83.5337665 },
+  { date: "9/6/03", venue: "High School Reunion", city: "Houston", state: "Texas", country: "United States", lat: 29.7492318, lng: -95.393789 },
   { date: "9/27/03", venue: "Faith Chapel", city: "Jeckyll Island", state: "Georgia", country: "United States", lat: 31.0606159, lng: -81.4243395 },
   // 2004
   { date: "3/18/04", venue: "Colosseum", city: "Rome", state: "", country: "Italy", lat: 41.8914811, lng: 12.4888935 },
@@ -85,7 +87,7 @@ const SAMPLE_TRAVELS_RAW = [
   { date: "7/5/08", venue: "Mendenhall Glacier", city: "Juneau", state: "Alaska", country: "United States", lat: 58.4409563, lng: -134.5561844 },
   { date: "7/6/08", venue: "Tongass National Forest", city: "Skagway", state: "Alaska", country: "United States", lat: 59.4571156, lng: -135.334883 },
   { date: "7/7/08", venue: "St. Michael the Archangel Orthodox Cathedral", city: "Sitka", state: "Alaska", country: "United States", lat: 57.0508111, lng: -135.3389685 },
-  { date: "7/9/08", venue: "U-Brew", city: "Anchorage", state: "Alaska", country: "United States", lat: 61.2196266, lng: -150.6293569 },
+  { date: "7/9/08", venue: "Denali Winery U-Brew Ice Wine", city: "Anchorage", state: "Alaska", country: "United States", lat: 61.1075574, lng: -150.6293569 },
   { date: "7/10/08", venue: "Talkeetna", city: "Talkeetna", state: "Alaska", country: "United States", lat: 62.2937434, lng: -150.5819839 },
   { date: "8/30/08", venue: "Trunk Bay", city: "St. John", state: "U.S. Virgin Islands", country: "United States", lat: 17.7637701, lng: -64.745988 },
   { date: "8/31/08", venue: "Mangrove Lagoon", city: "St. Thomas", state: "U.S. Virgin Islands", country: "United States", lat: 18.3083408, lng: -64.8902402 },
