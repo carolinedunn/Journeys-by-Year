@@ -165,6 +165,12 @@ export default function TravelMap({
             <span class="text-gray-500 font-mono">Distance from ATL:</span>
             <span class="font-bold text-gray-800 font-mono font-medium">${chk.distanceFromAtlanta.toLocaleString()} mi</span>
           </div>
+          ${chk.isLocalConnection ? `
+          <div class="mt-1 pt-1 border-t border-dashed border-gray-100 flex items-center justify-between text-xs text-amber-700 font-medium">
+            <span class="font-mono">Local Route Leg:</span>
+            <span class="font-bold font-mono">${chk.distanceContribution?.toLocaleString()} mi (from ${chk.prevLocationName})</span>
+          </div>
+          ` : ""}
           <div class="mt-1 pt-1 border-t border-dashed border-gray-100 flex items-center justify-between text-[9px] text-gray-400 font-mono">
             <span>Lat: ${chk.latitude.toFixed(4)}</span>
             <span>Lng: ${chk.longitude.toFixed(4)}</span>

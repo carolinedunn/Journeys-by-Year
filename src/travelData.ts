@@ -198,7 +198,9 @@ const SAMPLE_TRAVELS_RAW = [
   { date: "9/4/22", venue: "Philadelphia Museum of Art", city: "Philadelphia", state: "Pennsylvania", country: "United States", lat: 39.9651806, lng: -75.181171 },
   { date: "10/21/22", venue: "Stock & Barrel", city: "Knoxville", state: "Tennessee", country: "United States", lat: 35.9658192, lng: -83.920008 },
   { date: "11/21/22", venue: "Nice", city: "Nice", state: "", country: "France", lat: 43.6997699, lng: 7.2692819 },
-  { date: "11/27/22", venue: "Jardin Exotique cliffs", city: "Eze", state: "", country: "France", lat: 43.7299194, lng: 7.36203507 },
+  { date: "11/23/22", venue: "Saint-Paul-de-Vence", city: "Saint-Paul-de-Vence", state: "", country: "France", lat: 43.6971721, lng: 7.12096685 },
+  { date: "11/25/22", venue: "Bar Canada", city: "Ventimiglia", state: "", country: "Italy", lat: 43.7914321, lng: 7.51723385 },
+  { date: "11/28/22", venue: "L'Atelier Artisan Crepier", city: "Cannes", state: "", country: "France", lat: 43.5518797, lng: 7.01352814 },
   // 2023
   { date: "1/8/23", venue: "Providence Canyon State Park", city: "Lumpkin", state: "Georgia", country: "United States", lat: 32.0686323, lng: -84.906531 },
   { date: "2/2/23", venue: "Empire Canyon Lodge", city: "Park City", state: "Utah", country: "United States", lat: 40.6150813, lng: -111.51002 },
@@ -233,9 +235,10 @@ const SAMPLE_TRAVELS_RAW = [
   { date: "2/2/25", venue: "Lakeland Village Resort", city: "South Lake Tahoe", state: "California", country: "United States", lat: 38.9472731, lng: -119.9631 },
   { date: "2/5/25", venue: "Northstar California Ski Resort", city: "Tahoe Vista", state: "California", country: "United States", lat: 39.2741873, lng: -120.12019 },
   { date: "5/28/25", venue: "Radisson Resort Miami Beach", city: "Miami Beach", state: "Florida", country: "United States", lat: 25.7869109, lng: -80.133064 },
+  { date: "5/31/25", venue: "320 Guest Ranch", city: "Big Sky", state: "Montana", country: "United States", lat: 45.1034798, lng: -111.21309 },
   { date: "6/1/25", venue: "Grand Prismatic Spring Geyser", city: "West Yellowstone", state: "Montana", country: "United States", lat: 44.5285734, lng: -110.83634 },
   { date: "6/5/25", venue: "Grand Teton National Park", city: "Jackson", state: "Wyoming", country: "United States", lat: 43.9820364, lng: -110.66275 },
-  { date: "6/6/25", venue: "Hidden Falls Cascades", city: "Jackson Hole", state: "Wyoming", country: "United States", lat: 43.7650042, lng: -110.75089 },
+  { date: "6/6/25", venue: "Jenny Lake", city: "Moose Wilson Road", state: "Wyoming", country: "United States", lat: 43.753864, lng: -110.72613 },
   { date: "7/10/25", venue: "Napa Valley Wine Train", city: "Napa", state: "California", country: "United States", lat: 38.3030504, lng: -122.28378 },
   { date: "10/3/25", venue: "Pyrámide del Sol: Teotihuacan", city: "Teotihuacan", state: "", country: "Mexico", lat: 19.6885347, lng: -98.854101 },
   { date: "11/22/25", venue: "Senso-ji Temple & Shibuya Crossing", city: "Tokyo", state: "", country: "Japan", lat: 35.7147, lng: 139.7966 },
@@ -478,7 +481,7 @@ export function getLocalTimeOffset(
 }
 
 export function getParsedTravels(): TravelCheckIn[] {
-  return SAMPLE_TRAVELS_RAW.map((row, index) => {
+  const parsed = SAMPLE_TRAVELS_RAW.map((row, index) => {
     // Parse year from date string e.g. "5/30/10" -> 2010
     const parts = row.date.split("/");
     const month = parseInt(parts[0], 10);
@@ -536,4 +539,42 @@ export function getParsedTravels(): TravelCheckIn[] {
       timezoneOffset: offsetHours
     };
   }).sort((a, b) => a.dateObj.getTime() - b.dateObj.getTime());
+
+  return getTravelsWithRouteDistances(parsed);
+}
+
+export function getTravelsWithRouteDistances(travels: TravelCheckIn[]): TravelCheckIn[] {
+  // Sort by dateObj ascending to guarantee chronological order
+  const sorted = [...travels].sort((a, b) => a.dateObj.getTime() - b.dateObj.getTime());
+  
+  return sorted.map((current, i) => {
+    if (i === 0) {
+      return {
+        ...current,
+        isLocalConnection: false,
+        distanceContribution: current.distanceFromAtlanta,
+        prevLocationName: undefined
+      };
+    } else {
+      const prev = sorted[i - 1];
+      const daysDiff = Math.abs(current.dateObj.getTime() - prev.dateObj.getTime()) / (1000 * 60 * 60 * 24);
+      const distBetween = calculateDistance(prev.latitude, prev.longitude, current.latitude, current.longitude);
+      
+      if (daysDiff <= 5 && distBetween <= 120) {
+        return {
+          ...current,
+          isLocalConnection: true,
+          distanceContribution: distBetween,
+          prevLocationName: prev.city
+        };
+      } else {
+        return {
+          ...current,
+          isLocalConnection: false,
+          distanceContribution: current.distanceFromAtlanta,
+          prevLocationName: undefined
+        };
+      }
+    }
+  });
 }

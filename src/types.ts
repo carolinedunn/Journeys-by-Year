@@ -12,6 +12,9 @@ export interface TravelCheckIn {
   distanceFromAtlanta: number; // in km or miles
   utcDate?: string;
   timezoneOffset?: number;
+  isLocalConnection?: boolean;
+  distanceContribution?: number;
+  prevLocationName?: string;
 }
 
 export interface MapStyleOption {

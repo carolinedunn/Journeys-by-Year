@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { getParsedTravels, ATLANTA_COORDS, getContinentForCountry } from "./travelData";
+import { getParsedTravels, ATLANTA_COORDS, getContinentForCountry, getTravelsWithRouteDistances } from "./travelData";
 import { TravelCheckIn, MapStyleOption } from "./types";
 import TravelMap from "./components/TravelMap";
 import StatsDashboard from "./components/StatsDashboard";
@@ -20,7 +20,8 @@ import {
   ArrowUpRight,
   Linkedin,
   Youtube,
-  BookOpen
+  BookOpen,
+  Briefcase
 } from "lucide-react";
 
 const MAP_STYLES: MapStyleOption[] = [
@@ -106,7 +107,8 @@ export default function App() {
     }
 
     // Sort by date ascending (oldest to newest)
-    return [...list].sort((a, b) => a.dateObj.getTime() - b.dateObj.getTime());
+    const sortedList = [...list].sort((a, b) => a.dateObj.getTime() - b.dateObj.getTime());
+    return getTravelsWithRouteDistances(sortedList);
   }, [allTravels, selectedContinent, selectedYear, searchQuery]);
 
   // Handle active travel node selection
@@ -263,9 +265,9 @@ export default function App() {
                 <div className="flex-1 bg-slate-100/70 p-3 rounded border border-slate-200/50">
                   <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Distance</p>
                   <p className="text-base font-mono font-bold text-blue-600">
-                    {filteredTravels.reduce((acc, curr) => acc + curr.distanceFromAtlanta, 0).toLocaleString()}
+                    {filteredTravels.reduce((acc, curr) => acc + (curr.distanceContribution ?? curr.distanceFromAtlanta), 0).toLocaleString()}
                   </p>
-                  <p className="text-[8px] text-slate-500 font-medium">MILES OUTSIDE ATL</p>
+                  <p className="text-[8px] text-slate-500 font-medium">TOTAL ROUTE MILES</p>
                 </div>
                 
                 <div className="flex-1 bg-slate-100/70 p-3 rounded border border-slate-200/50">
@@ -286,6 +288,7 @@ export default function App() {
               {filteredTravels.length > 0 ? (
                 filteredTravels.map((chk, index) => {
                   const isHighlighted = highlightedCheckin?.checkinId === chk.checkinId;
+                  const distVal = chk.isLocalConnection ? chk.distanceContribution : chk.distanceFromAtlanta;
                   return (
                     <div
                       key={chk.checkinId}
@@ -313,7 +316,7 @@ export default function App() {
                             {chk.date}
                           </span>
                           <span className="text-[9px] font-bold font-mono text-blue-600 shrink-0">
-                            {chk.distanceFromAtlanta.toLocaleString()} mi
+                            {distVal?.toLocaleString()} mi
                           </span>
                         </div>
 
@@ -325,6 +328,12 @@ export default function App() {
                           <MapPin className="h-3 w-3 text-slate-400 shrink-0" />
                           {chk.city}{chk.state ? `, ${chk.state}` : ""}
                         </p>
+
+                        {chk.isLocalConnection && (
+                          <p className="text-[9px] text-amber-600 font-mono mt-0.5 flex items-center gap-1">
+                            <span>↪</span> Local leg: {chk.distanceContribution} mi from {chk.prevLocationName}
+                          </p>
+                        )}
                       </div>
 
                       <ChevronRight className={`h-3.5 w-3.5 self-center transition-transform shrink-0 ${
@@ -390,7 +399,7 @@ export default function App() {
                 rel="noopener noreferrer" 
                 className="hover:text-emerald-700 transition-colors flex items-center gap-1.5 font-bold"
               >
-                <Palmtree className="h-3 w-3 text-emerald-600" />
+                <Briefcase className="h-3 w-3 text-emerald-600" />
                 Itineraries
               </a>
               <span className="text-slate-300">•</span>
