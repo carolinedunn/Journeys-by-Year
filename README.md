@@ -26,6 +26,21 @@ Developed with modern **React**, **TypeScript**, **Tailwind CSS**, and **Leaflet
 
 ---
 
+## 📋 Customizing with Your Own Data
+
+To adapt this interactive travel catalog with your own destinations, follow these steps:
+
+### Step 1: Copy the Google Sheet Template
+1. Open the [Google Sheet Travel Destinations Template](https://docs.google.com/spreadsheets/d/1SOQngSij6H0O5FWEanSWoyXLqdFX_k-PKCKc_dO1EYc/edit?usp=sharing).
+2. Select **File > Make a copy** to save your own copy of the template.
+3. Input your destinations, including columns for location names, timestamps/years, descriptions, and geographical coordinates.
+
+### Step 2: Load Your Destinations into the App
+1. Update `/src/travelData.ts` in your project with the details of your travel stops.
+2. If desired, configure your specific home base coordinates in `/src/components/TravelMap.tsx` and calculations to compute accurate distances from your custom hub!
+
+---
+
 ## 📦 Getting Started & Installation
 
 Follow these steps to run the application locally in development mode or compile it for production:

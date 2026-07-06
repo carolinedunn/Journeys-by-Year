@@ -1,6 +1,6 @@
 {
   "name": "Travels of Caroline & Paul Dunn",
-  "description": "An interactive global travel log map displaying all travel spots visited beyond Atlanta, categorized by year, with rich analytics and professional styling.",
+  "description": "An interactive global travel log map displaying all travel spots visited beyond Atlanta, categorized by year and continent.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
