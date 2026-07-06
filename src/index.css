@@ -33,3 +33,19 @@
   transition: transform 0.25s cubic-bezier(0, 0, 0.25, 1) !important;
 }
 
+/* Custom year scrollbar styling for the dark slate aside panel */
+.aside-years-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.aside-years-scrollbar::-webkit-scrollbar-track {
+  background: #0f172a; /* bg-slate-900 */
+}
+.aside-years-scrollbar::-webkit-scrollbar-thumb {
+  background: #334155; /* bg-slate-700 */
+  border-radius: 2px;
+}
+.aside-years-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #475569; /* bg-slate-600 */
+}
+
+

@@ -115,7 +115,7 @@ export default function App() {
     <div className="min-h-screen bg-slate-100/80 text-slate-900 flex flex-col font-sans antialiased selection:bg-blue-100 p-2 sm:p-5">
       
       {/* Outer balanced layout wrapper */}
-      <div className="w-full max-w-7xl mx-auto bg-white rounded-2xl border border-slate-200/90 shadow-2xl flex flex-col overflow-hidden min-h-[85vh]">
+      <div className="w-full max-w-7xl mx-auto bg-white rounded-2xl border border-slate-200/90 shadow-2xl flex flex-col overflow-hidden min-h-[85vh] lg:h-[85vh] lg:min-h-[750px]">
         
         {/* Header Navigation */}
         <header className="h-16 flex items-center justify-between px-6 sm:px-8 bg-white border-b border-slate-200 shrink-0 z-10">
@@ -130,10 +130,10 @@ export default function App() {
         </header>
 
         {/* Dynamic Multi-panel Inner Body */}
-        <div className="flex-1 flex flex-col lg:flex-row overflow-hidden min-h-[640px]">
+        <div className="flex-1 flex flex-col lg:flex-row overflow-hidden min-h-[640px] lg:min-h-0">
           
           {/* Sidebar Left: Year Selector */}
-          <aside className="w-full lg:w-20 bg-slate-900 flex lg:flex-col items-center py-4 lg:py-8 gap-4 lg:gap-10 shrink-0 border-b lg:border-b-0 lg:border-r border-slate-800 overflow-x-auto lg:overflow-x-visible overflow-y-hidden lg:overflow-y-auto px-4 lg:px-0">
+          <aside className="w-full lg:w-20 bg-slate-900 flex lg:flex-col items-center py-4 lg:py-8 gap-4 lg:gap-10 shrink-0 border-b lg:border-b-0 lg:border-r border-slate-800 overflow-x-auto lg:overflow-x-hidden overflow-y-hidden lg:overflow-y-auto px-4 lg:px-0 aside-years-scrollbar">
             
             {/* Year selectors */}
             <div className="flex lg:flex-col gap-4 lg:gap-8 w-full items-center justify-around lg:justify-start">
@@ -163,13 +163,6 @@ export default function App() {
               })}
             </div>
 
-            {/* Extra status label at bottom */}
-            <div className="hidden lg:flex mt-auto mb-2 flex-col items-center">
-              <div className="w-10 h-10 rounded-full border border-slate-800 flex items-center justify-center text-slate-500 text-xs font-serif italic" title="Haversine Geodetics Loaded">
-                i
-              </div>
-            </div>
-
           </aside>
 
           {/* Center Column: Map Area and controls */}
@@ -178,8 +171,8 @@ export default function App() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1">
-                  <Globe className="h-3 w-3 text-blue-500 animate-spin" style={{ animationDuration: '10s' }} />
-                  Interactive Spatiotemporal Matrix
+                  <Globe className="h-3 w-3 text-blue-500" />
+                  Travel Destinations Map
                 </span>
                 <h2 className="text-xl font-bold tracking-tight text-slate-900 mt-1">
                   {searchQuery.trim() 
@@ -221,7 +214,7 @@ export default function App() {
                         : "bg-white hover:bg-slate-50 text-slate-600 border border-slate-200"
                     }`}
                   >
-                    {continent}
+                    {continent === "All" ? "by Year" : continent}
                   </button>
                 ))}
               </div>
@@ -373,16 +366,49 @@ export default function App() {
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
               <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div>
-              <span className="text-[9px] font-extrabold text-slate-500 uppercase tracking-widest">
-                Geodetic Vectors Sync Active
+              <span className="text-[10px] font-semibold text-slate-600 tracking-wider">
+                Created by{" "}
+                <a 
+                  href="https://www.linkedin.com/in/carolinedunn/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="font-bold text-blue-600 hover:underline inline-flex items-center gap-0.5"
+                >
+                  Caroline Dunn
+                  <ArrowUpRight className="h-2.5 w-2.5" />
+                </a>
               </span>
             </div>
-            <div className="text-[9px] font-bold text-slate-400 uppercase hidden sm:block">
-              Scale: 1 : Dynamic Mercator Projection
+            <div className="text-[10px] font-medium text-slate-500 hidden sm:flex items-center gap-3">
+              <span className="text-slate-300">|</span>
+              <a 
+                href="https://www.linkedin.com/in/carolinedunn/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="hover:text-blue-700 transition-colors flex items-center gap-1 font-bold"
+              >
+                LinkedIn
+              </a>
+              <span className="text-slate-300">•</span>
+              <a 
+                href="https://www.youtube.com/caroline" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="hover:text-red-600 transition-colors flex items-center gap-1 font-bold"
+              >
+                YouTube
+              </a>
             </div>
           </div>
-          <div className="text-[9px] font-extrabold text-slate-400 uppercase tracking-widest">
-            Curated via travels-led-outside-atlanta
+          <div className="text-[10px] font-semibold text-slate-500 tracking-wide">
+            <a 
+              href="https://winningintech.com/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hover:text-blue-600 hover:underline"
+            >
+              Winning In Tech
+            </a>
           </div>
         </footer>
 
