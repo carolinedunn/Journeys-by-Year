@@ -171,11 +171,11 @@ export default function StatsDashboard({
         <div className="mt-4 pt-3 border-t border-slate-100 flex flex-col gap-1 text-xs text-slate-400 font-mono relative z-10">
           <div className="flex justify-between items-center">
             <span>Total US States:</span>
-            <span className="font-bold text-slate-700">{usDetailsAllTime.states.length} / 50</span>
+            <span className="font-bold text-slate-700">{usDetailsAllTime.states.length}</span>
           </div>
           <div className="flex justify-between items-center">
             <span>Total US Territories:</span>
-            <span className="font-bold text-slate-700">{usDetailsAllTime.territories.length} / 6</span>
+            <span className="font-bold text-slate-700">{usDetailsAllTime.territories.length}</span>
           </div>
         </div>
       </div>
