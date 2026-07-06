@@ -17,7 +17,10 @@ import {
   ArrowRight,
   Sparkles,
   Palmtree,
-  ArrowUpRight
+  ArrowUpRight,
+  Linkedin,
+  Youtube,
+  BookOpen
 } from "lucide-react";
 
 const MAP_STYLES: MapStyleOption[] = [
@@ -385,8 +388,9 @@ export default function App() {
                 href="https://www.linkedin.com/in/carolinedunn/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="hover:text-blue-700 transition-colors flex items-center gap-1 font-bold"
+                className="hover:text-blue-700 transition-colors flex items-center gap-1.5 font-bold"
               >
+                <Linkedin className="h-3 w-3 text-blue-600" />
                 LinkedIn
               </a>
               <span className="text-slate-300">•</span>
@@ -394,8 +398,9 @@ export default function App() {
                 href="https://www.youtube.com/caroline" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="hover:text-red-600 transition-colors flex items-center gap-1 font-bold"
+                className="hover:text-red-600 transition-colors flex items-center gap-1.5 font-bold"
               >
+                <Youtube className="h-3 w-3.5 text-red-600" />
                 YouTube
               </a>
             </div>
@@ -405,8 +410,9 @@ export default function App() {
               href="https://winningintech.com/" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="hover:text-blue-600 hover:underline"
+              className="hover:text-blue-600 hover:underline flex items-center gap-1.5"
             >
+              <BookOpen className="h-3.5 w-3.5 text-blue-600" />
               Winning In Tech
             </a>
           </div>
