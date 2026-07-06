@@ -10,7 +10,7 @@ interface SharePreviewModalProps {
 
 type Platform = "twitter" | "facebook" | "slack";
 
-const travelPreview = "https://github.com/carolinedunn/Journeys-by-Year/blob/c28ce42317d0fc34e450cf53fd71ec74099daf8a/src/Travel-preview.png";
+const travelPreview = "src/Travel-preview.png";
 
 function MapPreviewGraphic() {
   return (
