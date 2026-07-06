@@ -232,10 +232,10 @@ const SAMPLE_TRAVELS_RAW = [
   // 2025
   { date: "2/2/25", venue: "Lakeland Village Resort", city: "South Lake Tahoe", state: "California", country: "United States", lat: 38.9472731, lng: -119.9631 },
   { date: "2/5/25", venue: "Northstar California Ski Resort", city: "Tahoe Vista", state: "California", country: "United States", lat: 39.2741873, lng: -120.12019 },
-  { date: "5/28/25", venue: "The Drexel Mediterranean Grill", city: "Miami Beach", state: "Florida", country: "United States", lat: 25.7869109, lng: -80.133064 },
-  { date: "6/1/25", venue: "Grand Prismatic Spring geyser", city: "West Yellowstone", state: "Montana", country: "United States", lat: 44.5285734, lng: -110.83634 },
+  { date: "5/28/25", venue: "Radisson Resort Miami Beach", city: "Miami Beach", state: "Florida", country: "United States", lat: 25.7869109, lng: -80.133064 },
+  { date: "6/1/25", venue: "Grand Prismatic Spring Geyser", city: "West Yellowstone", state: "Montana", country: "United States", lat: 44.5285734, lng: -110.83634 },
   { date: "6/5/25", venue: "Grand Teton National Park", city: "Jackson", state: "Wyoming", country: "United States", lat: 43.9820364, lng: -110.66275 },
-  { date: "6/6/25", venue: "Hidden Falls cascades", city: "Jackson Hole", state: "Wyoming", country: "United States", lat: 43.7650042, lng: -110.75089 },
+  { date: "6/6/25", venue: "Hidden Falls Cascades", city: "Jackson Hole", state: "Wyoming", country: "United States", lat: 43.7650042, lng: -110.75089 },
   { date: "7/10/25", venue: "Napa Valley Wine Train", city: "Napa", state: "California", country: "United States", lat: 38.3030504, lng: -122.28378 },
   { date: "10/3/25", venue: "Pyrámide del Sol: Teotihuacan", city: "Teotihuacan", state: "", country: "Mexico", lat: 19.6885347, lng: -98.854101 },
   { date: "11/22/25", venue: "Senso-ji Temple & Shibuya Crossing", city: "Tokyo", state: "", country: "Japan", lat: 35.7147, lng: 139.7966 },

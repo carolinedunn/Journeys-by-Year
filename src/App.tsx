@@ -372,7 +372,7 @@ export default function App() {
               <span className="text-[10px] font-semibold text-slate-600 tracking-wider">
                 Created by{" "}
                 <a 
-                  href="https://www.linkedin.com/in/carolinedunn/" 
+                  href="https://app.globethrivers.com/s/sjEMw6" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="font-bold text-blue-600 hover:underline inline-flex items-center gap-0.5"
@@ -384,6 +384,16 @@ export default function App() {
             </div>
             <div className="text-[10px] font-medium text-slate-500 hidden sm:flex items-center gap-3">
               <span className="text-slate-300">|</span>
+              <a 
+                href="https://app.globethrivers.com/s/sjEMw6" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="hover:text-emerald-700 transition-colors flex items-center gap-1.5 font-bold"
+              >
+                <Palmtree className="h-3 w-3 text-emerald-600" />
+                Itineraries
+              </a>
+              <span className="text-slate-300">•</span>
               <a 
                 href="https://www.linkedin.com/in/carolinedunn/" 
                 target="_blank" 
