@@ -3,7 +3,6 @@ import { getParsedTravels, ATLANTA_COORDS, getContinentForCountry, getTravelsWit
 import { TravelCheckIn, MapStyleOption } from "./types";
 import TravelMap from "./components/TravelMap";
 import StatsDashboard from "./components/StatsDashboard";
-import SharePreviewModal from "./components/SharePreviewModal";
 import { 
   Compass, 
   MapPin, 
@@ -22,8 +21,7 @@ import {
   Linkedin,
   Youtube,
   BookOpen,
-  Briefcase,
-  Share2
+  Briefcase
 } from "lucide-react";
 
 const MAP_STYLES: MapStyleOption[] = [
@@ -67,7 +65,6 @@ export default function App() {
   const [activeMapStyle, setActiveMapStyle] = useState<MapStyleOption>(MAP_STYLES[0]);
   const [highlightedCheckin, setHighlightedCheckin] = useState<TravelCheckIn | null>(null);
   const [hoveredCheckin, setHoveredCheckin] = useState<TravelCheckIn | null>(null);
-  const [isShareOpen, setIsShareOpen] = useState<boolean>(false);
 
   // Derive distinct years from data & sort descending
   const yearsList = useMemo(() => {
@@ -135,15 +132,21 @@ export default function App() {
             </h1>
           </div>
           <div className="flex gap-2 sm:gap-4 items-center">
-            <button
-              onClick={() => setIsShareOpen(true)}
+            <a
+              href="https://app.globethrivers.com/s/sjEMw6"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 hover:bg-slate-100 active:bg-slate-200 text-slate-700 hover:text-slate-900 transition-colors rounded-lg text-xs font-bold border border-slate-200/80 cursor-pointer shadow-sm"
-              title="View Social Sharing Preview"
+              title="See My Itineraries on Globe Thrivers"
               id="open-share-modal-btn"
             >
-              <Share2 className="h-3.5 w-3.5 text-blue-600" />
-              <span className="hidden sm:inline">Share Preview</span>
-            </button>
+              <img 
+                src="/globe-thrivers.png" 
+                alt="Globe Thrivers Icon" 
+                className="h-4 w-4 object-contain" 
+              />
+              <span className="hidden sm:inline">See My Itineraries</span>
+            </a>
           </div>
         </header>
 
@@ -251,7 +254,7 @@ export default function App() {
               hoveredCheckin={hoveredCheckin}
               onSelectCheckin={handleSelectCheckin}
               mapStyle={activeMapStyle}
-              hideHUDs={isShareOpen}
+              hideHUDs={false}
               selectedContinent={selectedContinent}
             />
 
@@ -466,8 +469,6 @@ export default function App() {
           searchQuery={searchQuery}
         />
       </div>
-
-      <SharePreviewModal isOpen={isShareOpen} onClose={() => setIsShareOpen(false)} sharedUrl="https://travel.cdunn.org/" />
 
     </div>
   );
